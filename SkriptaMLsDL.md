@@ -35,39 +35,38 @@ Tímto způsobem dozorované učení umožňuje modelům generalizovat z trénov
 
 ### Ukázka
 
-![image](https://github.com/0NDRS/PVA/assets/145441873/0d2ddff6-789b-43d3-a036-f18f79731bfd)
+![image](https://github.com/0NDRS/PVA/assets/145441873/937c50a5-285f-4baa-af85-8c00a0af77ec)
 
-Tento kód ukazuje jednoduchý příklad supervised learning pomocí rozhodovacího stromu pro klasifikaci na souboru iris.csv, který obsahuje data o květech Iris:
+Tento kód demonstruje vytvoření a trénování jednoduchého lineárního regresního modelu pomocí knihovny TensorFlow v jazyce Python:
 
-Import knihoven:
+Generování trénovacích dat:
 
-train_test_split: Funkce pro rozdělení dat na trénovací a testovací sady.
-DecisionTreeClassifier: Třída pro implementaci rozhodovacího stromu.
-accuracy_score, confusion_matrix: Metriky pro vyhodnocení výkonu modelu.
-pandas: Knihovna pro manipulaci s daty.
-Načtení dat:
+X_train je vytvořeno jako 100 rovnoměrně rozložených hodnot od 0 do 10.
+y_train je vytvořeno jako lineární vztah 2*X + 1 s přidaným náhodným šumem.
+Vytvoření modelu v TensorFlow:
 
-Načítáme data ze souboru iris.csv do pandas DataFrame (data).
-Rozdělení dat na trénovací a testovací sady:
+Vytvoření jednoduchého lineárního regresního modelu s jednou vrstvou (Dense) a jedním vstupem.
+Kompilace modelu:
 
-Rozdělujeme data na příznaky (X) a cílový atribut (y - třídu květu).
-Data jsou rozdělena na trénovací a testovací sady ve poměru 80:20 pomocí train_test_split.
-Vytvoření modelu rozhodovacího stromu:
+Kompilace modelu s optimizerem 'sgd' (Stochastic Gradient Descent) a loss funkcí 'mean_squared_error'.
+Trénink modelu:
 
-Vytváříme instanci třídy DecisionTreeClassifier s nastavením random_state pro opakovatelnost výsledků.
-Natrénujeme model na trénovacích datech:
+Trénink modelu na trénovacích datech po dobu 100 epoch.
+Vytvoření nových dat pro predikci:
 
-Model je trénován na trénovací sadě pomocí metody fit.
-Provedeme predikce na testovacích datech:
+Vytvoření nových hodnot pro predikci modelu.
+Predikce s modelem:
 
-Model je použit k predikci tříd na testovací sadě.
-Vyhodnotíme výkon modelu:
+Použití natrénovaného modelu k predikci výstupních hodnot pro nová data.
+Vizualizace výsledků:
 
-Vypočteme přesnost predikcí pomocí accuracy_score.
-Vytvoříme matici záměn pomocí confusion_matrix, což poskytuje podrobnější pohled na výsledky klasifikace pro jednotlivé třídy.
-Výpis výsledků:
+Vykreslení skutečných dat a predikcí modelu pro vizualizaci výsledků.
 
-Přesnost modelu a matice záměn jsou vypsány.
+Výsledek
+
+Ve výsledku můžeme vidět modrá body jakožto vstupní data a AI vytvoří přímku tak, aby byla nejblíže všem bodům
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/f3d6be13-eb28-491e-92db-5619c5b91db5)
 
 ### 2. Unsupervised Learning (UL)
 
@@ -135,35 +134,36 @@ PCA (Principal Component Analysis) může být použit pro snížení dimenziona
 
 ### Ukázka
 
-![image](https://github.com/0NDRS/PVA/assets/145441873/050ef2b3-3462-46fb-ad30-69ba6405ad79)
+![image](https://github.com/0NDRS/PVA/assets/145441873/2713408f-ac81-403a-82e0-469c544b2e54)
+
+Zde vidíme ukázku Unsupervised Learningu, kdy zde máme neuronovou síť s autoenkoderem, který usměrňuje modré body:
+
+Generování náhodných dat:
+
+Vytvoření 100 náhodných bodů ve 2D pomocí NumPy.
+Vytvoření K-means modelu:
+
+V Tensorflow používáme tf.compat.v1.estimator.experimental.KMeans pro vytvoření K-means modelu s 3 shluky.
+Definice vstupní funkce:
+
+Vytvoření vstupní funkce input_fn, která převede data na tensor TensorFlow.
+Trénování modelu K-means:
+
+Trénink modelu K-means pomocí metody train s využitím vstupní funkce.
+Přiřazení k shlukům:
+
+Získání přiřazení k shlukům pro každý bod v datech.
+Vykreslení dat:
+
+Vykreslení dat s ohledem na přiřazení k shlukům. Každý shluk je zobrazen jinou barvou pomocí c=assignments.
+
+Výsledek
+
+Zde vidíme výsledek programu, kdy můžeme vidět modré body jakožto nějaký šum a AI šum odstraní viz, červené body
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/60679802-d742-46e7-9aae-69160a53e98b)
 
 
-Tento kód demonstruje použití unsupervised learning, konkrétně metody k-means clustering, pomocí knihovny scikit-learn v jazyce Python:
-
-Import knihoven:
-
-KMeans: Třída pro implementaci k-means clustering.
-matplotlib.pyplot: Knihovna pro vizualizaci dat.
-numpy: Knihovna pro práci s numerickými daty.
-Vytvoření náhodných dat pro příklad:
-
-Generujeme náhodná data (v tomto případě 100 bodů s dvěma příznaky) pomocí knihovny numpy. Tyto náhodná data budeme používat pro demonstraci k-means clustering.
-Vytvoření modelu k-means s 3 shluky (cluster):
-
-Vytvoříme instanci třídy KMeans s požadovaným počtem shluků (v tomto případě 3).
-Natrénujeme model na datech:
-
-Model je natrénován na náhodných datech pomocí metody fit.
-Přiřazení dat k jednotlivým shlukům:
-
-Každý bod v datech je přiřazen k jednomu ze shluků pomocí metody labels_.
-Vykreslení dat s ohledem na přiřazení k shlukům:
-
-Vykreslíme body na grafu, přičemž každý shluk má odlišnou barvu.
-Také zvýrazníme středy (centroidy) shluků na grafu.
-Zobrazení grafu:
-
-Vykreslený graf je zobrazen pomocí plt.show()
 ### 3. Reinforcement Learning (RL)
 #### Definice:
 Reinforcement Learning (RL) je paradigma strojového učení, které je inspirováno způsobem, jakým lidé a zvířata učí nové dovednosti interakcí s okolním světem.
@@ -197,6 +197,55 @@ Volba Algoritmu:
 Volba algoritmu pro učení agenta je klíčovým faktorem pro dosažení optimálních výsledků.
 Příklad:
 Při klasifikaci e-mailů jako spamu nebo ne-spamu, kvalitní trénovací data obsahující rozmanitost e-mailů jsou klíčová pro úspěch modelu.
+
+### Ukázka
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/4fe9ff84-ed8e-4522-99ae-c883401bca93)
+
+Tento kód implementuje jednoduchý algoritmus Q-learningu pro učení s posilovaním. Q-learning je algoritmus, který umožňuje agentovi naučit se optimální strategii rozhodování ve specifickém prostředí. V tomto konkrétním případě je prostředí zjednodušeno na pevný počet stavů a akcí.
+
+Stručně:
+
+Agent se trénuje v prostředí s pevným počtem stavů a akcí pomocí Q-learningu.
+Q-Values jsou aktualizovány na základě odměn a odhadovaných budoucích odměn v každém stavu.
+Po trénování jsou vypsány naučené Q-Values a provedeno testování agenta ve zvoleném testovacím stavu.
+
+Import knihoven:
+
+Importuje knihovnu NumPy, což je populární knihovna pro práci s numerickými daty v Pythonu. V tomto kódu bude použita pro práci s maticemi Q-Values.
+Definice prostředí:
+
+num_states určuje počet stavů v prostředí.
+num_actions určuje počet akcí, které může agent podniknout.
+Q_values je matice Q-Values, která slouží k odhadu hodnot akcí ve stavu. Při inicializaci jsou všechny hodnoty nastaveny na nulu.
+Nastavení parametrů Q-Learningu:
+
+learning_rate určuje, jak rychle agent aktualizuje své odhady Q-Values na základě nových informací.
+discount_factor ovlivňuje, jak moc agent bere v úvahu budoucí odměny při aktualizaci Q-Values.
+num_episodes určuje počet epizod (her), které agent použije k trénování.
+Trénování Q-Learningem:
+
+Cyklus for episode in range(num_episodes): iteruje přes všechny trénovací epizody.
+state je náhodně inicializovaný počáteční stav pro každou epizodu.
+Vnitřní cyklus while not done: reprezentuje jednu epizodu hry.
+Volba akce je řízena epsilon-greedy strategií, která umožňuje náhodný výběr akce s pravděpodobností epsilon.
+Simulovaný přechod stavů a získání odměny.
+Aktualizace Q-Values pomocí Q-Learning aktualizace.
+Výpis naučených Q-Values:
+
+Po dokončení trénování se vypíší naučené Q-Values pro každý stav a akci. Tato matice poskytuje odhad budoucích odměn pro každou možnou akci ve všech stavech.
+Testování naučeného agenta:
+
+Náhodně se vybere testovací stav.
+Agent vybere nejlepší akci podle naučených Q-Values pro daný testovací stav.
+Výsledky testování se vypíší, což může obsahovat informace o testovacím stavu, vybrané akci a dalších relevantních informacích.
+
+
+Výsledek
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/40c827b3-1db1-4237-96ba-6ce833d5de54)
+
+
 
 ## Předzpracování Dat v Machine Learning
 
@@ -252,36 +301,26 @@ Tímto způsobem, provedením těchto kroků předzpracování dat, můžeme zaj
 
 ### Ukázka
 
-![image](https://github.com/0NDRS/PVA/assets/145441873/9f87244c-f78a-430f-bc5b-8c8f3a6bd3ab)
+![image](https://github.com/0NDRS/PVA/assets/145441873/3d25cf2e-bd09-48a2-9e67-23ee76a818c2)
 
 #### Tento kód představuje proces předzpracování dat pomocí knihoven zejména z balíčku scikit-learn v jazyce Python. Zde je popis jednotlivých částí:
 
-Import knihoven pro předzpracování dat:
-
-pandas: Knihovna pro manipulaci a analýzu dat.
-StandardScaler: Třída pro standardizaci dat (normalizace).
-LabelEncoder: Třída pro transformaci kategoriálních atributů na číselné hodnoty.
-SimpleImputer: Třída pro nahrazování chybějících hodnot v datech.
-Načtení dat:
-
-Data jsou načtena ze souboru 'data.csv' do pandas DataFrame (data).
-Čištění dat - odstranění chybějících hodnot:
-
-Chybějící hodnoty jsou odstraněny z DataFrame pomocí dropna().
-Normalizace dat:
-
-Atributy 'Feature1' a 'Feature2' jsou normalizovány pomocí StandardScaler, což je důležité pro mnoho algoritmů strojového učení.
-Transformace kategoriálních atributů:
-
-Kategoriální atribut 'Category' je transformován na číselné hodnoty pomocí LabelEncoder. Tímto způsobem se kategoriální data převedou do podoby, kterou lze lépe využít ve strojovém učení.
-Redukce rozměrů pomocí PCA:
-
-Atributy 'Feature1' a 'Feature2' jsou dále zpracovány pomocí analýzy hlavních komponent (PCA) s cílem snížení rozměrů na 2. To může pomoci při vizualizaci dat nebo zjednodušení modelů, zejména pokud původní atributy obsahují vysokou korelaci.
-Celkově lze tento kód chápat jako příklad standardních kroků předzpracování dat před použitím ve strojovém učení. Je důležité adaptovat tyto kroky na specifické charakteristiky dat a požadavky konkrétní úlohy.
-
-
+Vytvoření umělých dat:
+Generují se náhodná data (X1, X2, y) s použitím NumPy. Data jsou následně uložena do DataFrame (data), který je poté exportován do CSV souboru.
 ## Evaluace Modelu
 Evaluace modelu je klíčovým krokem v procesu strojového učení, který nám poskytuje informace o výkonu modelu na nezávislých datech. Různé metriky a postupy jsou využívány k hodnocení schopnosti modelu generalizovat na nová data. Zde se zaměříme na principy evaluace modelu.
+
+Normalizace dat v TensorFlow:
+Funkce normalize_data načte data ze souboru, provede standardizaci dat pomocí StandardScaler a následně vytvoří DataFrame s normalizovanými daty.
+Původní a normalizovaná data jsou vypsána na výstup.
+
+Tento kód generuje, ukládá a normalizuje umělá data a poskytuje přehled o původních a normalizovaných datech v podobě výstupu.
+
+Výsledek
+
+Zde vidíme normalizovaná data, kde hodnoty se hodně lišíy, ale zaměřte se především na relativní vzájemné postavení hodnot v rámci každého atributu a na to, jak jsou standardizované hodnoty blízké střední hodnotě 0 a jak mají standardní odchylku 1.
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/65b2c933-17df-4142-96cf-d43e33dc2788)
 
 ### 1. Rozdělení Dat:
 #### Princip:
