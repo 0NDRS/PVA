@@ -378,65 +378,316 @@ Principy:
 
 Hluboké neuronové sítě obsahují mnoho vrstev, které umožňují modelům učit se reprezentace dat hierarchicky.
 Neuronové sítě jsou schopny automaticky odhalovat složité vzory v datech.
-### 3 Typy Deep Learning Modelů
-#### 1. Konvoluční neuronové sítě (CNN)
-Princip:
-Specializace: CNN jsou navrženy zejména pro zpracování a analýzu vizuálních dat, jako jsou obrázky a videa.
-Konvoluce: Využívají konvoluční vrstvy k detekci různých vzorů v obrazu.
-Pooling: Používají se pooling vrstvy k redukci rozměrů a zachování významných informací.
-Příklad: Rozpoznávání objektů v obrázcích, klasifikace obrazů, detekce tváří.
-#### 2. Rekurentní neuronové sítě (RNN)
-Princip:
-Práce s Sekvencemi: RNN jsou navrženy pro práci se sekvencemi dat, jako jsou časové řady nebo jazyková data.
-Vnitřní Stav: Udržují vnitřní stav, který umožňuje zachytit kontext v čase.
-Zpětné Propagace: Využívají zpětnou propagaci chyby k učení z předchozích stavů.
-Příklad: Předpověď textu, generování hudby, strojový překlad.
-#### 3. Hluboké autoenkódery
-Princip:
-Snížení Dimenzionality Dat: Hluboké autoenkódery slouží k redukci dimenzionality dat a odstranění hluku.
-Encoder a Decoder: Obsahují encoder pro zakódování dat a decoder pro jejich dekódování.
-Příklad: Zlepšení kvality obrázků odstraněním nežádoucích artefaktů, komprese dat.
-Funkce Deep Learning
-Síla Hlubokého Učení:
-Automatické Extrahování Vlastností: Schopnost extrahovat relevantní vlastnosti ze vstupních dat.
-Hierarchická Reprzentace: Schopnost učení hierarchických reprezentací dat.
-Omezení a Možnosti DL
-Potřeba Velkého Množství Dat: Pro efektivní učení je často vyžadováno velké množství dat.
+## 3 Typy Deep Learning Modelů
 
-Výpočetní Náročnost: Trénink hlubokých modelů může vyžadovat výpočetní zdroje.
+### 1. Konvoluční neuronové sítě (CNN)
+
+#### Konvoluční Vrstvy:
+
+Hlavním prvkem CNN jsou konvoluční vrstvy. Tyto vrstvy aplikují filtry (konvoluce) na vstupní data, což umožňuje extrahovat různé úrovně příznaků z obrazu nebo jiných vizuálních dat.
+Filtry jsou malé matice vah, které se skládají zahodnocených hodnot. Během konvoluce je tento filtr posouván po vstupních datech a vytváří mapy příznaků.
+#### Pooling (Slévání):
+
+Po každé konvoluci může následovat pooling, což je operace slévání. Typicky se používá max pooling, kde se z každé skupiny hodnot vybere maximální hodnota. Pooling snižuje prostorovou dimenzi dat a zároveň zachovává důležité příznaky.
+#### Aktivační Funkce:
+
+Aktivační funkce, obvykle ReLU (Rectified Linear Unit), se aplikuje na výsledné hodnoty po každé konvoluci nebo poolingu. Aktivační funkce přidává nelinearitu do modelu.
+#### Plně Propojené Vrstvy:
+
+Konvoluční a pooling vrstvy jsou často následovány plně propojenými vrstvami, které se starají o konečné rozhodování a klasifikaci. Tyto vrstvy mohou mít také aktivační funkce.
+#### Využití Vah a Lokálních Vzorů:
+
+CNN využívají sdílení vah a tím se snižuje počet parametrů v modelu. Každý filtr se používá na celý obrázek, což umožňuje modelu zachytit lokální vzory nezávisle na jejich umístění.
+
+### Použití Konvolučních Neuronových Sítí:
+
+##### Rozpoznávání Obrazu:
+
+CNN jsou široce využívány pro rozpoznávání objektů, tváří, znaků a dalších prvků v obrazech.
+##### Klasifikace Obrazu:
+
+Jsou efektivní při klasifikaci obrazů do různých tříd nebo kategorií.
+##### Segmentace Obrazu:
+
+Pomáhají při segmentaci obrazu na jednotlivé části nebo objekty.
+##### Předzpracování Vstupů do Hlubokých Sítí:
+
+Často se používají k předzpracování vstupních dat do hlubokých sítí pro jiné úlohy.
+##### Analytika Videa:
+
+Jsou využívány při analýze a pochopení videa, detekci pohybu a dalších úlohách v oblasti videa.
+##### Zpracování Přirozeného Jazyka:
+
+CNN mohou být adaptovány pro práci s textem a zpracování přirozeného jazyka.
+
+Ukázka:
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/e822a29d-1a40-45fc-9b5e-58d470dd11eb)
+
+Tento kód demonstruje jednoduchý konvoluční neuronový model pro klasifikaci číslic ze známého datasetu MNIST:
+
+#### Načtení a Předzpracování Dat:
+
+Načítá dataset MNIST, který obsahuje černobílé obrázky číslic od 0 do 9.
+Normalizuje hodnoty pixelů na rozsah 0-1, což pomáhá při rychlejším učení modelu.
+Přidává dimenzi pro kanál, protože černobílé obrázky mají pouze jednu složku.
+Kóduje cílové třídy pomocí one-hot encoding, což je běžná praxe při práci s kategoriálními daty.
+Rozděluje data na trénovací a validační sady pro evaluaci modelu.
+#### Interaktivní Část pro Výběr Čísla:
+
+Umožňuje uživateli zadat číslo od 0 do 9.
+Vybere odpovídající obrázky a popisky z validační sady pro zadané číslo.
+Vykreslí první obrázek z vybraných dat s odpovídajícím popiskem pro kontrolu.
+#### Definice a Trénování Modelu:
+
+Definuje konvoluční neuronový model, který se skládá z konvolučních vrstev, poolovacích vrstev a plně propojených vrstev.
+Kompiluje model s optimizátorem Adam, který efektivně aktualizuje váhy během učení, kategoriální cross-entropy jako loss funkcí (měření chyby) a accuracy jako metrikou pro sledování úspěšnosti modelu.
+Trénuje model na trénovacích datech a sleduje vývoj úspěšnosti a chyby na validační sadě během několika epoch.
+#### Vizualizace Konvolučních Filtrů:
+
+Získává váhy první konvoluční vrstvy modelu, což jsou filtry, které model naučil detekovat vzory v datech.
+Vykresluje tyto filtry pro vizuální kontrolu toho, co model "vidí" ve vstupních datech.
+#### Vizualizace Výstupů Konvolučních Vrstev:
+
+Načítá vybraný obrázek a získává výstupy prvních šesti vrstev modelu pro tento obrázek.
+Vykresluje tyto výstupy pro lepší pochopení, jak se data transformují v průběhu konvolučních vrstev.
+Celkově má kód za účel demonstrovat proces vytváření, trénování a vizualizace konvolučního neuronového modelu pro rozpoznávání číslic z datasetu MNIST.
+
+Výsledek
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/d02df71a-c69c-416e-8b66-9009fd548228)
+
+
+#### 2. Rekurentní neuronové sítě (RNN)
+
+#### Rekurentní Jednotka:
+
+Nejzákladnější stavební jednotkou RNN je rekurentní jednotka. Tato jednotka umožňuje přenos informací z jednoho kroku sekvence na další.
+V každém kroku RNN vezme vstupní hodnotu a předchozí stav a vytvoří nový stav a výstup.
+#### Zpětná Propagace v Čase (BPTT):
+
+BPTT je algoritmus používaný pro trénování RNN. Principiálně je to podobné zpětné propagaci chyby v běžných neuronových sítích, ale s tím rozdílem, že se prochází časem a aktualizují se váhy podle chyb v časových krocích.
+#### Problém Explodujících a Mizejících Gradientů:
+
+Při trénování RNN může docházet k problémům s gradientem, zejména když se gradienty buď exponenciálně zvyšují (explodující gradienty) nebo exponenciálně klesají na nulu (mizející gradienty).
+Pro řešení těchto problémů byly vyvinuty varianty RNN, jako jsou LSTM (Long Short-Term Memory) a GRU (Gated Recurrent Unit), které mají lepší schopnost zacházet s dlouhodobými závislostmi v datech.
+#### LSTM (Long Short-Term Memory):
+
+LSTM je speciální typ rekurentní neuronové sítě, který byl navržen k řešení problému mizejících gradientů a umožňuje modelu lépe zachytit dlouhodobé závislosti v datech.
+Má komplexní strukturu s pomocnými branami, které rozhodují, které informace mají být uchovány a které mohou být zapomenuty.
+Použití Rekurentních Neuronových Sítí:
+#### NLP (Natural Language Processing):
+
+RNN jsou široce využívány v oblasti zpracování přirozeného jazyka pro překlad, generování textu a další aplikace.
+#### Časové Řady:
+
+Používají se k modelování časových řad, například při předpovídání budoucích hodnot finančních ukazatelů.
+#### Řečové Rozpoznávání:
+
+RNN jsou účinné při práci s řečovými daty, zejména při převodu řeči na text nebo naopak.
+#### Generování Seznamů:
+
+Jsou schopny generovat nové sekvence podle vzorů naučených ze vstupních dat.
+#### Robotika a řízení:
+
+Využívají se k řízení a navigaci robotů na základě vizuálních dat nebo senzorů.
+Rekurentní neuronové sítě jsou mocným nástrojem pro práci se sekvenciálními daty a jsou stále důležitou součástí oblasti hlubokého učení. Jejich schopnost zachytit kontext a závislosti mezi daty je klíčová pro mnoho aplikací v oblasti umělé inteligence.
+
+### Ukázka
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/91908349-7da6-474d-ab8a-d0d8534951d5)
+
+Tento model je navržen pro generování textu na základě trénovacích vět. Konkrétněji, je trénován na posloupnostech slov v texte a poté schopný generovat nové textové sekvence na základě zadaného počátečního seed textu:
+
+Tokenizace textu:
+
+Kód začíná tokenizací trénovacích vět. Tokenizace je proces převedení textu na sekvenci čísel, kde každé slovo je přiřazeno unikátnímu číslu.
+V tomto případě se používá třída Tokenizer z Kerasu.
+Příprava trénovacích sekvencí:
+
+Následuje příprava trénovacích sekvencí. Jedná se o vytváření n-gramů (posloupností slov o délce n) ze vstupních vět.
+Tato sekvence se bude používat jako vstupní a výstupní data pro trénování modelu.
+Padding:
+
+Pro účely trénování sekvence musí mít stejnou délku. Proto se provádí padding na začátku každé sekvence.
+Rozdělení na X a y:
+
+Sekvence se rozdělí na vstupní část (X: všechny sloupce kromě posledního) a výstupní část (y: poslední sloupec).
+Definice modelu RNN:
+
+Vytváří se model rekurentní neuronové sítě (RNN) pomocí Kerasu. Model obsahuje vložení (embedding) pro převod čísel na vektory, LSTM vrstvu pro učení dlouhodobých závislostí a plně propojenou vrstvu s aktivací softmax pro predikci dalšího slova.
+Kompilace modelu:
+
+Model se kompiluje s použitím optimizátoru Adam a kategoriální křížovou entropií jako ztrátovou funkcí.
+Trénování modelu:
+
+Model se trénuje na připravených trénovacích datech s 100 epochami.
+Generování textu:
+
+Funkce generate_text přijímá seed text, počet generovaných slov, model, délku vstupní sekvence a tokenizer.
+Během generování se postupně přidávají nová slova k původnímu textu na základě pravděpodobností predikovaných modelem.
+Teplota ovlivňuje míru "kreativity" generovaného textu. Vyšší teplota dává větší váhu nejistým předpovědím.
+Generování a výpis výsledků:
+
+Závěrečná část kódu generuje text pro různé seed texty a vypisuje výsledky.
+
+Výsledek
+
+Vidíme, že model vygeneroval zcela nové věty na základě poskytlých dat. Věty nedávají smysl jelikož se jedná o zjednodušený model.
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/68d8331d-5df6-4194-9221-2e23f5501c63)
+
+
+### 3. Hluboké autoenkódery
+
+#### 1. Co jsou Hluboké Autoenkódery:
+
+Hluboké autoenkódery jsou specifický typ umělé neuronové sítě, který se skládá z enkódovací a dekódovací části.
+Tyto sítě mají schopnost učit se efektivní reprezentaci vstupních dat a jsou často používány pro redukci dimenze, odstranění šumu a extrakci významných rysů v datech.
+#### 2. Struktura Hlubokých Autoenkóderů:
+
+Enkódovací část snižuje dimenzi vstupních dat na kompaktní reprezentaci, zvanou latentní prostor.
+Latentní prostor obsahuje důležité rysy a vzory z původních dat.
+Dekódovací část obnovuje data z latentního prostoru do původní dimenze.
+#### 3. Vícevrstvý Autoenkóder:
+
+Hluboký autoenkóder má více vrstev než tradiční autoenkóder.
+Tato vrstvená struktura umožňuje modelu učit se hierarchie abstrakcí a reprezentací v datech.
+#### 4. Trénink Hlubokých Autoenkóderů:
+
+Trénink hlubokých autoenkóderů se provádí pomocí metody zpětného šíření chyby (backpropagation) a optimalizačních algoritmů, např. stochastického gradientového sestupu (SGD).
+#### 5. Redukce Dimenze:
+
+Hluboké autoenkódery jsou často používány k redukci dimenze dat, což umožňuje zachování důležitých informací a odstranění redundantních nebo nepodstatných prvků.
+#### 6. Odstranění Šumu:
+
+Autoenkódery mají schopnost odstranit šum z dat, což je užitečné v oblastech, kde jsou data zkreslena nebo obsahují chyby.
+#### 7. Aplikace Hlubokých Autoenkóderů:
+
+Hluboké autoenkódery jsou používány v různých oblastech, včetně počítačového vidění, zpracování přirozeného jazyka, analýzy dat a generativního modelování.
+#### 8. Výzvy:
+
+Trénink hlubokých autoenkóderů může být náročný a vyžaduje velké množství dat.
+Správná volba architektury modelu a hyperparametrů je klíčová pro úspěšné učení.
+#### 9. Generativní Schopnosti:
+
+Hluboké autoenkódery mají generativní schopnosti, což znamená, že mohou generovat nová data podobná těm, na kterých byly trénovány.
+#### 10. Sdílení Vah (Weight Sharing):
+
+Váhy enkódovací a dekódovací části jsou obvykle sdíleny, což zvyšuje kapacitu modelu a umožňuje efektivní reprezentaci dat.
 
 #### Příklad:
 
 Pro rozpoznávání objektů ve fotografiích jsou potřeba tisíce označených obrázků pro efektivní trénink modelu.
 Tím jsme si přiblížili klíčové principy a typy Deep Learningu, a to včetně detailnějšího pohledu na jednotlivé modely. Dále porovnáme tuto technologii s Machine Learningem.
 
+Ukázka:
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/2001c9e7-6856-4ba7-8237-afd092d0c551)
+
+Zde vidíme hluboký autoenkóder, kdy neuronoé sítě se učí z dat a následně mnimalizují šum:
+
+Import knihoven:
+
+Importujeme TensorFlow a další potřebné knihovny.
+Importujeme vrstvy a nástroje z Keras.
+#### Generování umělých dat (pro demonstrační účely):
+
+Vytváříme umělá data pro trénink autoenkóderu. Každý řádek reprezentuje jeden vzor.
+Definice hlubokého autoenkóderu:
+
+Vytváříme funkci deep_autoencoder, která vytváří model hlubokého autoenkóderu pomocí Keras.
+Model má enkóder a dekóder, s postupně se zmenšujícím a zvětšujícím počtem neuronů ve skrytých vrstvách.
+Příprava dat a normalizace:
+
+Normalizujeme vstupní data do rozsahu [0, 1], což je častá praxe pro neuronové sítě.
+Vytvoření a trénování modelu:
+
+Vytváříme instanci autoenkóderu pomocí definované funkce.
+Kompilujeme model s optimizerem 'adam' a loss funkcí 'mean_squared_error'.
+Trénujeme model na umělých datech.
+Vizualizace výsledků:
+
+Vytváříme vizualizaci vstupních a rekonstruovaných obrázků.
+Zobrazujeme několik příkladů vedle sebe pro porovnání kvality rekonstrukce.
+
+Výsledek
+
+Horní řada je vygenerovaný obraz a spodní je upravená verze se sníženým šumem
+
+![image](https://github.com/0NDRS/PVA/assets/145441873/9411b30c-8890-49c7-b813-5e09b8d2b0cb)
+
+
+
 ## Jak fungují vsrtvy v Deep Learingu (DL)
 
 V Deep Learning (Hlubokém učení) jsou vrstvy základními stavebními bloky neuronových sítí. Každá vrstva má svou specifickou roli v extrakci a transformaci dat. Podívejme se na několik klíčových vrstev v Deep Learning:
 
-### 1. Vstupní Vrstva
-Funkce: Přijímá vstupní data, například obrázky, text nebo zvuk, a předává je do sítě.
-Charakteristika: Počet neuronů v této vrstvě odpovídá rozměrům vstupních dat.
-### 2. Skrytá (Hidden) Vrstva
-Funkce: Tato vrstva je prostřední fází mezi vstupní a výstupní vrstvou, kde probíhá většina učení sítě.
-Charakteristika: Může obsahovat různý počet neuronů a může být složena z několika vrstev, čímž vytváří hloubku sítě.
-### 3. Výstupní Vrstva
-Funkce: Generuje konečné výstupy nebo predikce na základě informací z předchozích vrstev.
-Charakteristika: Počet neuronů odpovídá počtu tříd (pro klasifikaci) nebo formátu výstupu (např. regrese).
+### 1. Nejzákladnější stavební bloky:
+
+Vstupní vrstva (Input Layer): Přijímá vstupní data a předává je dalším vrstvám. Každý neuron v této vrstvě reprezentuje jednu vstupní vlastnost.
+Výstupní vrstva (Output Layer): Produkuje výstupní predikce nebo klasifikace. Počet neuronů v této vrstvě závisí na typu úlohy (regrese, klasifikace, generace atd.).
+### 2. Skryté vrstvy (Hidden Layers):
+
+Propojení vrstev: Neurony v jedné vrstvě jsou propojeny s neurony v následující vrstvě. Každá spojení má přidělenou váhu, která se mění během tréninku.
+Aktivační funkce: Každý neuron v skryté vrstvě používá aktivační funkci k tomu, aby zpracoval vstup a generoval výstup. Populární aktivační funkce zahrnují ReLU (Rectified Linear Unit), sigmoid a tanh.
+### 3. Funkce skrytých vrstev:
+
+Extrahování hierarchií: Skryté vrstvy umožňují modelu učit se hierarchie abstrakcí a složitostí v datech. Každá vrstva může zachytit různé úrovně reprezentací.
+### 4. Konvoluční vrstvy v konvolučních neuronových sítích (CNN):
+
+Lokální vzory: Konvoluční vrstvy jsou efektivní při zachycování lokálních vzorů ve vstupních datech, například v obrazech. Používají konvoluci a pooling operace.
+### 5. Rekurentní vrstvy v rekurentních neuronových sítích (RNN):
+
+Zpětná vazba v čase: Rekurentní vrstvy umožňují modelům pracovat s posloupnostmi dat a mají schopnost udržovat vnitřní stav časové závislosti.
+### 6. Normalizační vrstvy (Batch Normalization):
+
+Normalizace dat: Normalizační vrstvy přispívají k stabilizaci a rychlejší konvergenci modelu tím, že normalizují výstupy vrstev.
+### 7. Funkce dropout:
+
+Prevence přetrénování: Dropout je technika, kde náhodně vynecháváme některé neurony během tréninku, což pomáhá zabránit přetrénování modelu.
+### 8. Loss (Ztrátová) funkce:
+
+Hodnota chyby: Loss funkce hodnotí rozdíl mezi predikcemi modelu a skutečnými hodnotami. Cílem je minimalizovat tuto hodnotu během tréninku.
+### 9. Optimalizace:
+
+Optimalizační algoritmy: Algoritmy, jako je SGD (Stochastic Gradient Descent), Adam nebo RMSprop, slouží k aktualizaci vah modelu tak, aby minimalizovaly hodnotu loss funkce.
+### 10. Zpětná propagace chyby:
+
+Učení pomocí chyby: Zpětná propagace chyby (backpropagation) je algoritmus, který se používá k aktualizaci vah v modelu na základě chyby predikce a skutečné hodnoty.
+### 11. Regularizace:
+
+Prevence přetrénování: Techniky jako L1 nebo L2 regularizace slouží k omezení velikosti vah a prevenci přetrénování modelu.
+### 12. Overfitting (Přetrénování):
+
+Problém přetrénování: Přetrénování může nastat, když model příliš dobře zapamatuje trénovací data, ale nemá schopnost generalizovat na nová data.
+### 13. Vstupní normalizace:
+
+Normalizace vstupu: Normalizace vstupních dat pomáhá stabilizovat proces trénování a urychluje konvergenci modelu.
+### 14. Výstupní aktivační funkce:
+
+### Podoba výstupu: Aktivační funkce výstupní vrstvy se volí v závislosti na typu úlohy (např. sigmoid pro binární klasifikaci, softmax pro multiklasovou klasifikaci).
+Deep Learning využívá těchto stavebních bloků pro vytváření složitých modelů, které mají schopnost reprezentovat, generalizovat a interpretovat různé druhy dat. Hierarchická struktura a adaptabilita těchto vrstev jsou klíčové pro úspěch v oblastech jako počítačové vidění, zpracování přirozeného jazyka, hlasové rozpoznávání a mnoho dalších.
+
 ## Specifické Typy Vrstev
+
 ### 1. Konvoluční Vrstva (Convolutional Layer)
 Použití: Zejména pro zpracování obrazových dat.
 Funkce: Detekuje různé vzory a lokální struktury pomocí konvolučních filtrů.
 Charakteristika: Obsahuje váhy (filtry), které se aplikují na malé části vstupních dat.
+
 ### 2. Rekurentní Vrstva (Recurrent Layer)
 Použití: Při práci se sekvencemi dat, jako jsou časové řady nebo texty.
 Funkce: Udržuje vnitřní stav pro zachycení kontextu v čase.
 Charakteristika: Přenáší informace z předchozích časových kroků do současného kroku.
+
 ### 3. Normalizační Vrstva (Normalization Layer)
 Použití: Normalizace výstupů vrstev, aby se stabilizoval a urychlil proces učení.
 Funkce: Normalizuje aktivační hodnoty na nulový průměr a jednotkový rozptyl.
 Charakteristika: Pomáhá předejít problémům, jako je přetrénování a zrychluje konvergenci modelu.
+
 ### 4. Dropout Vrstva
+
 ##### Funkce: Náhodně "vypíná" (ignoruje) některé neurony během tréninku, což zabraňuje přetrénování.
 Charakteristika: Parametr určuje pravděpodobnost "vypnutí" každého neuronu.
 Využití různých typů vrstev vytváří flexibilitu pro modelování různých typů dat a úkolů v rámci hlubokého učení. Hierarchie a vzájemné propojení těchto vrstev umožňují neuronovým sítím extrahovat a učit složité vzory v datech.
@@ -478,5 +729,6 @@ Využití různých typů vrstev vytváří flexibilitu pro modelování různý
 
 ##### ML: Využívá se ve vědeckém průzkumu, podnikovém rozhodování, finanční analýze.
 ##### DL: Často se uplatňuje v oblasti počítačového vidění, zpracování přirozeného jazyka, robotiky a autonomních systémů.
+
 ## Závěr
 Obě technologie, Machine Learning a Deep Learning, mají své vlastní výhody a omezení. Zatímco Machine Learning se často uplatňuje v případech s menším objemem dat a vyžaduje méně výpočetních zdrojů, Deep Learning vyniká v komplexnějších úkolech, zejména v oblasti zpracování vizuálních a jazykových dat. Výběr mezi nimi závisí na konkrétním úkolu, dostupných datech a výpočetních zdrojích.
