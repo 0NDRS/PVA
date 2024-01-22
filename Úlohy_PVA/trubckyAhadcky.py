@@ -1,20 +1,17 @@
 import math
 
-# Validace bodů na stěně
-def validate_point_on_wall(x, y, z, side):
-    if x < 0 or y < 0 or z < 0 or x > side or y > side or z > side:
-        print(f"Chyba: Bod s souřadnicemi ({x}, {y}, {z}) není na stěně krychle.")
-        exit(1)
 # Validace bodů ve velké blízkosti stěny
 def validate_point_close_to_wall(x, y, z, side):
-    if x < 20:
-        print(f"Chyba: Bod s souřadnicemi ({x}, {y}, {z}) je ve velké blízkosti stěny krychle.")
+    if 0 < x <= 20 or 0 < y <= 20 or 0 < z <= 20 or side - 20 <= x < side or side - 20 <= y < side or side - 20 <= z < side:
+        print(f"Chyba: Bod s souřadnicemi ({x}, {y}, {z}) je příliš blízko stěně.")
         exit(1)
+
 # Validace dat bodů
 def validate_point_out_of_wall(x, y, z, side):
-    if x < 0 or y < 0 or z < 0 or x > side or y > side or z > side:
+    if x < 0 or y < 0 or z < 0 or x > side or y > side or z > side or (x != side and y != side and z != side and x != 0 and y != 0 and z != 0):
         print(f"Chyba: Bod s souřadnicemi ({x}, {y}, {z}) má chybné údaje.")
         exit(1)
+
 
 # Validace délky strany
 try:
@@ -26,14 +23,15 @@ except ValueError:
     print("Chyba: Zadejte prosím platné číslo.")
     exit(1)
 
-# Validace prvního bodu
 try:
     point1_input = input("Zadejte koordinace prvního bodu (x y z): ")
     if not point1_input:
         print("Chyba: Neplatné hodnoty pro první bod.")
         exit(1)
     point1 = list(map(int, point1_input.split()))
-    validate_point_on_wall(*point1, side)
+    if len(point1) != 3:
+        print("Chyba: Zadejte všechny tři souřadnice pro první bod.")
+        exit(1)
     validate_point_close_to_wall(*point1, side)
     validate_point_out_of_wall(*point1, side)
 except ValueError:
@@ -47,13 +45,14 @@ try:
         print("Chyba: Neplatné hodnoty pro druhý bod.")
         exit(1)
     point2 = list(map(int, point2_input.split()))
-    validate_point_on_wall(*point2, side)
+    if len(point2) != 3:
+        print("Chyba: Zadejte všechny tři souřadnice pro druhý bod.")
+        exit(1)
     validate_point_close_to_wall(*point2, side)
     validate_point_out_of_wall(*point2, side)
 except ValueError:
     print("Chyba: Neplatné hodnoty pro druhý bod.")
     exit(1)
-
 distances = [abs(a - b) for a, b in zip(point1, point2)]
 
 def distance_to_edge(point, side):
