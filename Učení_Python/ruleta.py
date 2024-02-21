@@ -52,6 +52,6 @@ while True:
         print("Počítač vyhrál")
     else:
         print("Vyhrál jste")
-        os.remove(__ruleta.py__)
+        os.remove(__file__)
         break
 exit(1)
