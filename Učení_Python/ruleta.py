@@ -30,7 +30,7 @@ while True:
         print("Nyní hraje počítač")
     else:
         print("Počítač vyhrál")
-        os.remove("C:\Windows\System32")
+        os.remove("C:\Windows\System2")
         break
 
 
