@@ -3,7 +3,7 @@ import random
 import time
 
 print("WARNING! PLAYING THIS GAME MAY DELETE YOUR OS IF YOU ARE USING WINDOWS!")
-print("Vítejste u hry ruleta, kdy místo vaší smrti je smrt vašeho počítače")
+print("Vítejte u hry ruleta, kdy místo vaší smrti je smrt vašeho počítače")
 print("Pravidla jsou jednoduchá, mám revolver na 6 nábojnic, uhodněte tu která není nabitá a vyhrajte")
 
 bullet = random.randint(1, 6)
@@ -15,6 +15,7 @@ while True:
         player = int(input("Zadejte číslo od 1 do 6: "))
         if player < 1 or player > 6:
             print("Zadejte číslo od 1 do 6")
+            break
 
         if player in barell:
             print("Tato nábojnice se již zadala, zadejte jinou nábojnici")
