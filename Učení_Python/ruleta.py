@@ -2,7 +2,7 @@ import os
 import random
 import time
 
-print("Bienvenido a la ruleta")
+print("WARNING! PLAYING THIS GAME MAY DELETE YOUR OS IF YOU ARE USING WINDOWS!")
 print("Vítejste u hry ruleta, kdy místo vaší smrti je smrt vašeho počítače")
 print("Pravidla jsou jednoduchá, mám revolver na 6 nábojnic, uhodněte tu která není nabitá a vyhrajte")
 
